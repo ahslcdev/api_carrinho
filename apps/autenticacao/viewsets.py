@@ -1,20 +1,25 @@
-from rest_framework.viewsets import ModelViewSet
+from rest_framework import mixins
+from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from django.contrib.auth.models import User
-
+from drf_spectacular.utils import extend_schema_view, extend_schema
 from apps.autenticacao.serializers import CreateUserSerializer, ListUserSerializer
 
-class UsuarioViewSet(ModelViewSet):
+
+@extend_schema_view(
+    retrieve=extend_schema(description='text'),
+    create=extend_schema(description='text'),
+    list=extend_schema(description='text'),
+    partial_update=extend_schema(description='text')
+)
+class UsuarioViewSet(mixins.ListModelMixin,
+                     mixins.RetrieveModelMixin,
+                     mixins.UpdateModelMixin,
+                     mixins.CreateModelMixin,
+                     GenericViewSet):
     queryset = User.objects.all()
     serializer_class = ListUserSerializer
-    http_method_names = ['get', 'post', 'patch']
 
     def get_serializer_class(self):
         if self.action in ['create']:
             return CreateUserSerializer
         return super().get_serializer_class()
-    
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        if not self.request.user.is_superuser:
-            return queryset.filter(id=self.request.id)
-        return queryset
