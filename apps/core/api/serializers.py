@@ -50,7 +50,8 @@ class PedidosSerializer(ModelSerializer):
     
     def to_representation(self, instance):
         retorno = super().to_representation(instance)
-        retorno['id_user'] = {
+        retorno.pop('id_user')
+        retorno['usuario'] = {
             "id": instance.id_user.id,
             "username": instance.id_user.username
         }
