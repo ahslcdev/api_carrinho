@@ -10,6 +10,7 @@ class ItemSerializer(ModelSerializer):
     def validate_preco(self, data):
         if data <= 0:
             raise ValidationError("Preço do item não pode ser menor ou igual a zero")
+        return data
 
 class PedidoItemSerializer(ModelSerializer):
     class Meta:
@@ -22,13 +23,15 @@ class PedidoItemSerializer(ModelSerializer):
     def validate_quantidade(self, data):
         if data <= 0:
             raise ValidationError("Quantidade de itens não pode ser menor ou igual a zero")
+        return data
 
-class CreatePedidoSerializer(ModelSerializer):
+class PedidosSerializer(ModelSerializer):
     itens = ListSerializer(child=PedidoItemSerializer())
 
     class Meta:
         model = Pedido
         fields = [
+            'id',
             'id_user', 
             'itens'
         ]
@@ -45,11 +48,10 @@ class CreatePedidoSerializer(ModelSerializer):
         PedidoItem.objects.bulk_create(list_itens)
         return pedido
     
-class ListPedidoSerializer(ModelSerializer):
-    class Meta:
-        model = Pedido
-        fields = [
-            'id', 
-            'id_user', 
-            'itens'
-        ]
+    def to_representation(self, instance):
+        retorno = super().to_representation(instance)
+        retorno['id_user'] = {
+            "id": instance.id_user.id,
+            "username": instance.id_user.username
+        }
+        return retorno
