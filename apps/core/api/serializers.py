@@ -36,6 +36,11 @@ class PedidosSerializer(ModelSerializer):
             'itens'
         ]
 
+    def validate_itens(self, data):
+        if not data:
+            raise ValidationError('Não é possível realizar um pedido sem itens.')
+        return data
+
     def create(self, validated_data):
         itens = validated_data.get('itens')
         validated_data.pop('itens')
