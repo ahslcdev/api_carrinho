@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer, ListField, ListSerializer
+from rest_framework.serializers import ModelSerializer, ListSerializer, ValidationError
 
 from apps.core.models import Item, Pedido, PedidoItem
 
@@ -6,6 +6,10 @@ class ItemSerializer(ModelSerializer):
     class Meta:
         model = Item
         fields = '__all__'
+
+    def validate_preco(self, data):
+        if data <= 0:
+            raise ValidationError("Preço do item não pode ser menor ou igual a zero")
 
 class PedidoItemSerializer(ModelSerializer):
     class Meta:
@@ -15,13 +19,16 @@ class PedidoItemSerializer(ModelSerializer):
         ]
         model = PedidoItem
 
+    def validate_quantidade(self, data):
+        if data <= 0:
+            raise ValidationError("Quantidade de itens não pode ser menor ou igual a zero")
+
 class CreatePedidoSerializer(ModelSerializer):
     itens = ListSerializer(child=PedidoItemSerializer())
 
     class Meta:
         model = Pedido
         fields = [
-            'id', 
             'id_user', 
             'itens'
         ]
@@ -36,7 +43,6 @@ class CreatePedidoSerializer(ModelSerializer):
                 PedidoItem(id_item=i.get('id_item'), id_pedido=pedido, quantidade=i.get('quantidade'))
             )
         PedidoItem.objects.bulk_create(list_itens)
-        print(pedido)
         return pedido
     
 class ListPedidoSerializer(ModelSerializer):
@@ -45,5 +51,5 @@ class ListPedidoSerializer(ModelSerializer):
         fields = [
             'id', 
             'id_user', 
-            # 'itens'
+            'itens'
         ]

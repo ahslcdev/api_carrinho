@@ -1,6 +1,6 @@
 from rest_framework.routers import DefaultRouter
 
-from apps.core.viewsets import ItemViewSet, PedidoViewSet
+from apps.core.api.viewsets import ItemViewSet, PedidoViewSet
 
 router = DefaultRouter()
 router.register(r'itens', ItemViewSet)
