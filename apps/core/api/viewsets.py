@@ -19,9 +19,3 @@ class PedidoViewSet(mixins.CreateModelMixin,
     queryset = Pedido.objects.all()
     serializer_class = PedidosSerializer
     filterset_class = PedidoFilters
-
-    # def get_serializer_class(self):
-    #     serializer = super().get_serializer_class()
-    #     if self.action == 'create':
-    #         serializer = CreatePedidoSerializer
-    #     return CreatePedidoSerializer
