@@ -1,3 +1,4 @@
+from typing import Any
 from django.test import TestCase
 from rest_framework.test import APIClient
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -113,3 +114,104 @@ class UsuarioViewSetTestCase(TestCase):
         response = self.client.post(f"{self.url_base}/api/usuarios/", data)
         self.assertEqual({'password': ['Este campo não pode ser em branco.']}, response.json())
         self.assertEqual(response.status_code, 400)
+
+    def test_patch_success(self):
+        """
+        Teste de sucesso ao atualizar os dados de um usuário
+        """
+        username_antigo = self.user.username
+        data = {
+            "username": 'teste5'
+        }
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.token}')
+        response = self.client.patch(f"{self.url_base}/api/usuarios/{self.user.id}/", data)
+        self.assertEqual(response.status_code, 200)
+        self.assertNotEqual(response.json().get('username'), username_antigo)
+
+    def test_patch_error_username(self):
+        """
+        Teste de error ao atualizar o username de um usuário colocando
+        um username já existente
+        """
+        new_user = UserFactory()
+        data = {
+            "username": new_user.username
+        }
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.token}')
+        response = self.client.patch(f"{self.url_base}/api/usuarios/{self.user.id}/", data)
+        self.assertEqual(response.status_code, 400)
+
+
+class AutenticacaoTestCase(TestCase):
+    def setUp(self) -> None:
+        self.client = APIClient()
+        self.user = UserFactory()
+        self.token = RefreshToken.for_user(self.user)
+        self.url_base = '/autenticacao'
+        return super().setUp()
+    
+    def test_login_success(self):
+        """
+        Teste de sucesso ao efetuar o login com todos os dados corretos
+        """
+        data = {
+            'username': self.user.username,
+            'password': 'teste'
+        }
+        response = self.client.post(f"{self.url_base}/login/", data)
+        self.assertEqual(response.status_code, 200)
+
+    def test_login_error_invalid_data(self):
+        """
+        Teste de error ao tentar efetuar o login com o username errado
+        """
+        data = {
+            'username': '123',
+            'password': 'teste'
+        }
+        response = self.client.post(f"{self.url_base}/login/", data)
+        self.assertEqual(response.status_code, 401)
+
+    def test_logout_success(self):
+        """
+        Teste de sucesso ao efetuar o logout
+        """
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.token.access_token}')
+        data = {
+            'refresh': str(self.token)
+        }
+        response = self.client.post(f"{self.url_base}/logout", data)
+        self.assertEqual(response.status_code, 200)
+
+    def test_logout_error(self):
+        """
+        Teste de error ao tentar efetuar o logout com um token refresh errado
+        """
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.token.access_token}')
+        data = {
+            'refresh': '123'
+        }
+        response = self.client.post(f"{self.url_base}/logout", data)
+        self.assertEqual(response.status_code, 401)
+
+    def test_refresh_success(self):
+        """
+        Teste de sucesso ao obter um novo token refresh
+        """
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.token.access_token}')
+        data = {
+            'refresh': str(self.token)
+        }
+        response = self.client.post(f"{self.url_base}/refresh/", data)
+        self.assertEqual(response.status_code, 200)
+
+    def test_refresh_error(self):
+        """
+        Teste de error ao tentar obter um novo token refresh informando um token inválido
+        """
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.token.access_token}')
+        data = {
+            'refresh': '123'
+        }
+        response = self.client.post(f"{self.url_base}/refresh/", data)
+        self.assertEqual(response.status_code, 401)
