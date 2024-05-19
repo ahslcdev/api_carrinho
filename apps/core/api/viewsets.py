@@ -3,7 +3,7 @@ from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
 from apps.core.api.filters import PedidoFilters
 from apps.core.models import Item, Pedido
-from apps.core.api.serializers import CreatePedidoSerializer, ItemSerializer, ListPedidoSerializer
+from apps.core.api.serializers import ItemSerializer, PedidosSerializer
 
 
 class ItemViewSet(ModelViewSet):
@@ -17,11 +17,11 @@ class PedidoViewSet(mixins.CreateModelMixin,
                     mixins.ListModelMixin,
                     GenericViewSet):
     queryset = Pedido.objects.all()
-    serializer_class = ListPedidoSerializer
+    serializer_class = PedidosSerializer
     filterset_class = PedidoFilters
 
-    def get_serializer_class(self):
-        serializer = super().get_serializer_class()
-        if self.action == 'create':
-            serializer = CreatePedidoSerializer
-        return serializer
+    # def get_serializer_class(self):
+    #     serializer = super().get_serializer_class()
+    #     if self.action == 'create':
+    #         serializer = CreatePedidoSerializer
+    #     return CreatePedidoSerializer
