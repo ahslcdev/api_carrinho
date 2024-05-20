@@ -3,16 +3,26 @@ from rest_framework.serializers import ModelSerializer, ListSerializer, Validati
 from apps.core.models import Item, Pedido, PedidoItem
 
 class ItemSerializer(ModelSerializer):
+    """
+    Serializer para o model Item
+    """
     class Meta:
         model = Item
         fields = '__all__'
 
     def validate_preco(self, data):
+        """
+        Valida o preço do item
+        """
         if data <= 0:
             raise ValidationError("Preço do item não pode ser menor ou igual a zero")
         return data
+    
 
 class PedidoItemSerializer(ModelSerializer):
+    """
+    Serializer para o model PedidoItem
+    """
     class Meta:
         fields = [
             'id_item',
@@ -21,11 +31,18 @@ class PedidoItemSerializer(ModelSerializer):
         model = PedidoItem
 
     def validate_quantidade(self, data):
+        """
+        Valida o quantidade de itens no pedido
+        """
         if data <= 0:
             raise ValidationError("Quantidade de itens não pode ser menor ou igual a zero")
         return data
+    
 
 class PedidosSerializer(ModelSerializer):
+    """
+    Serializer responsável pelo model principal do projeto, Pedido
+    """
     itens = ListSerializer(child=PedidoItemSerializer())
 
     class Meta:
@@ -37,11 +54,17 @@ class PedidosSerializer(ModelSerializer):
         ]
 
     def validate_itens(self, data):
+        """
+        Valida o array de itens
+        """
         if not data:
             raise ValidationError('Não é possível realizar um pedido sem itens.')
         return data
 
     def create(self, validated_data):
+        """
+        Este método abstrai a associação PedidoItem
+        """
         itens = validated_data.get('itens')
         validated_data.pop('itens')
         pedido = super().create(validated_data)
@@ -54,6 +77,9 @@ class PedidosSerializer(ModelSerializer):
         return pedido
     
     def to_representation(self, instance):
+        """
+        Este método permite customizar o retorno ao usuário
+        """
         retorno = super().to_representation(instance)
         retorno.pop('id_user')
         retorno['usuario'] = {
