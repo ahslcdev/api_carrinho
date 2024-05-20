@@ -2,10 +2,9 @@ from django.contrib import admin
 
 from apps.core.models import Item, Pedido, PedidoItem
 
-# Register your models here.
-admin.site.register(PedidoItem)
-# admin.site.register(Pedido)
-admin.site.register(Item)
+@admin.register(Item)
+class ItemAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nome', 'preco', 'ativo', 'criado_em',)
 
 class PedidoItemInline(admin.TabularInline):
     model = PedidoItem
