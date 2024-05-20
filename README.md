@@ -55,6 +55,7 @@
 - O preço do item foi salvo como inteiro pois dessa forma não teria problemas no retorno dos dados no endpoint.
 - O projeto utiliza de uma biblioteca que não permite a criação de senhas fracas para os usuários, exceto ao rodar o comando `python manage.py createsuperuser`
 - A documentação do projeto encontra-se na url `http://localhost:<PORT>/api/schema/swagger-ui/`
+- Basic Auth foi disponibilizado apenas para facilitar a utilização da documentação, dessa forma é possível realizar as chamadas HTTP tanto com JWT quanto Basic Auth
 - Através da url fornecida acima, é possível realizar todas as requisições HTTP através da tela disponibilizada.
     - Para realizar as chamadas HTTP é necessário autenticar
     - ![auth_doc](https://github.com/ahslcdev/api_carrinho/assets/53409839/c844cdde-fed9-469c-ac61-818b8f1c5b17)
