@@ -43,7 +43,7 @@
 2. Clone este repositório: `git clone https://github.com/ahslcdev/api_carrinho`
 3. Navegue até o diretório do projeto: `cd api_carrinho`
 4. Altere o nome do arquivo `.env.example.docker` para `.env`
-5. Construa a imagem do Docker e inicie os serviços: `docker compose up -d --build`
+5. Construa a imagem do Docker e inicie os serviços: `docker-compose up -d --build`
 6. Crie um super usuário: `docker exec -it api python manage.py createsuperuser`
 7. Execute os testes: `docker exec -it api python manage.py test tests`
 
