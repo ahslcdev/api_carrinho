@@ -21,6 +21,6 @@ class UsuarioViewSet(mixins.ListModelMixin,
 
     def get_serializer_class(self):
         serializer_classe = super().get_serializer_class()
-        if self.action in ['create']:
+        if self.action in ['create', 'partial_update', 'put']:
             serializer_classe = CreateUserSerializer
         return serializer_classe
