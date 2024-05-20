@@ -9,7 +9,7 @@
 - Cadastrar usuários
 - Login
 - Logout
-- Atualizar token refresh
+- Atualizar token de acesso
 - Atualizar informações de usuários
 - Listar todos os usuários
 - Listar usuário específico
