@@ -20,6 +20,7 @@ class UsuarioViewSet(mixins.ListModelMixin,
     serializer_class = ListUserSerializer
 
     def get_serializer_class(self):
+        serializer_classe = super().get_serializer_class()
         if self.action in ['create']:
-            return CreateUserSerializer
-        return super().get_serializer_class()
+            serializer_classe = CreateUserSerializer
+        return serializer_classe
