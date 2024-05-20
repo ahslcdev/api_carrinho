@@ -33,6 +33,7 @@
                 `cd ../../`
 5. Instale as dependências: `pip install -r requirements.txt`
 6. Altere o nome do arquivo `.env.example` para `.env`
+    * É necessário que tenha um banco de dados criado com as informações que estão presentes no env file
 7. Aplique as migrações: `python manage.py migrate`
 8. Crie um super usuário: `python manage.py createsuperuser`
 9. Execute os testes: `python manage.py test tests`
