@@ -6,7 +6,8 @@
 3. Crie o ambiente virtual: `python -m venv venv`
 4. Ative o ambiente 
     * Linux: `source venv/bin/activate`
-    * Windows: `cd venv/bin/activate \n cd ../../`
+    * Windows: `cd venv/bin/activate`
+                `cd ../../`
 
 5. Instale as dependências: `pip install -r requirements.txt`
 6. Aplique as migrações: `python manage.py migrate`
