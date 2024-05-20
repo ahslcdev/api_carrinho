@@ -26,7 +26,8 @@ THIRD_PACKAGES = [
 ]
 
 APPS_CUSTOM = [
-    'apps.core'
+    'apps.core',
+    'apps.autenticacao'
 ]
 
 DEFAULT_APPS = [
