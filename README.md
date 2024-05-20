@@ -53,3 +53,4 @@
 - A documentação do projeto encontra-se na url `http://localhost:<PORT>/api/schema/swagger-ui/`
 - Através da url fornecida acima, é possível realizar todas as requisições HTTP através da tela disponibilizada.
     - Para realizar as chamadas HTTP é necessário autenticar
+- Por fim, é possível acessar o painel administrativo do sistema através da url: `http://localhost:<PORT>/admin/`
