@@ -6,10 +6,10 @@ from apps.autenticacao.serializers import CreateUserSerializer, ListUserSerializ
 
 
 @extend_schema_view(
-    retrieve=extend_schema(description='text'),
-    create=extend_schema(description='text'),
-    list=extend_schema(description='text'),
-    partial_update=extend_schema(description='text')
+    retrieve=extend_schema(description='Listagem específica de usuários'),
+    create=extend_schema(description='Criação de usuários'),
+    list=extend_schema(description='Listagem geral de usuários'),
+    partial_update=extend_schema(description='Update parcial de usuários'),
 )
 class UsuarioViewSet(mixins.ListModelMixin,
                      mixins.RetrieveModelMixin,
