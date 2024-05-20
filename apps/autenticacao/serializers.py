@@ -20,6 +20,9 @@ class CreateUserSerializer(ModelSerializer):
         model = User
 
     def validate_password(self, data):
+        """
+        Validação e hash da senha do usuário
+        """
         password_validation.validate_password(data, self.instance)
         data = make_password(data)
         return data
