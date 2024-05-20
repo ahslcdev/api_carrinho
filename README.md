@@ -29,7 +29,7 @@
 3. Crie o ambiente virtual: `python -m venv venv`
 4. Ative o ambiente 
     * Linux: `source venv/bin/activate`
-    * Windows: `cd venv/bin/activate`
+    * Windows: `cd venv/Scripts/activate`
                 `cd ../../`
 5. Instale as dependências: `pip install -r requirements.txt`
 6. Altere o nome do arquivo `.env.example` para `.env`
@@ -37,6 +37,7 @@
 8. Crie um super usuário: `python manage.py createsuperuser`
 9. Execute os testes: `python manage.py test tests`
 10. Inicie o servidor: `python manage.py runserver`
+11. Acesse o sistema na url: `http://localhost:8000/admin/`
 
 ## Como rodar o projeto e os testes com Docker
 1. Certifique-se de ter o Docker instalado na sua máquina.
@@ -47,6 +48,7 @@
 6. Realize as migrações: `docker exec -it api python manage.py migrate`
 7. Crie um super usuário: `docker exec -it api python manage.py createsuperuser`
 8. Execute os testes: `docker exec -it api python manage.py test tests`
+9. Acesse o sistema na url: `http://localhost:8000/admin/`
 
 ## Informações adicionais
 - O preço do item foi salvo como inteiro pois dessa forma não teria problemas no retorno dos dados no endpoint.
@@ -56,5 +58,5 @@
     - Para realizar as chamadas HTTP é necessário autenticar
     - ![auth_doc](https://github.com/ahslcdev/api_carrinho/assets/53409839/c844cdde-fed9-469c-ac61-818b8f1c5b17)
     - ![modal_doc](https://github.com/ahslcdev/api_carrinho/assets/53409839/48cf041b-bd99-422a-9c60-e92026981edc)
-- Por fim, é possível acessar o painel administrativo do sistema através da url: `http://localhost:<PORT>/admin/`
+
 
