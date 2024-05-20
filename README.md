@@ -44,8 +44,9 @@
 3. Navegue até o diretório do projeto: `cd api_carrinho`
 4. Altere o nome do arquivo `.env.example.docker` para `.env`
 5. Construa a imagem do Docker e inicie os serviços: `docker-compose up -d --build`
-6. Crie um super usuário: `docker exec -it api python manage.py createsuperuser`
-7. Execute os testes: `docker exec -it api python manage.py test tests`
+6. Realize as migrações: `docker exec -it api python manage.py migrate`
+7. Crie um super usuário: `docker exec -it api python manage.py createsuperuser`
+8. Execute os testes: `docker exec -it api python manage.py test tests`
 
 ## Informações adicionais
 - O preço do item foi salvo como inteiro pois dessa forma não teria problemas no retorno dos dados no endpoint.
