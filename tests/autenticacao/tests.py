@@ -209,7 +209,7 @@ class AutenticacaoTestCase(TestCase):
 
     def test_refresh_success(self):
         """
-        Teste de sucesso ao obter um novo token refresh
+        Teste de sucesso ao obter um novo token de acesso
         """
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.token.access_token}')
         data = {
@@ -220,7 +220,7 @@ class AutenticacaoTestCase(TestCase):
 
     def test_refresh_error(self):
         """
-        Teste de error ao tentar obter um novo token refresh informando um token inválido
+        Teste de error ao tentar obter um novo token de acesso informando um token inválido
         """
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.token.access_token}')
         data = {
