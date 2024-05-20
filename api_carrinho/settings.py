@@ -16,12 +16,10 @@ ALLOWED_HOSTS = [env("ALLOWED_HOSTS")]
 
 THIRD_PACKAGES = [
     'rest_framework',
-    'corsheaders',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'django_zxcvbn_password_validator',
     'django_filters',
-    'drf_standardized_errors',
     'drf_spectacular',
 ]
 
@@ -44,7 +42,6 @@ INSTALLED_APPS = DEFAULT_APPS + APPS_CUSTOM + THIRD_PACKAGES
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -160,9 +157,6 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
     'ENFORCE_NON_BLANK_FIELDS':True,
-    'LICENSE': {
-        'name':"BSD License",    
-    },
     'COMPONENT_SPLIT_REQUEST': True,
     "ENUM_NAME_OVERRIDES": {
         "ValidationErrorEnum": "drf_standardized_errors.openapi_serializers.ValidationErrorEnum.choices",
