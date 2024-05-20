@@ -53,5 +53,3 @@
 - A documentação do projeto encontra-se na url `http://localhost:<PORT>/api/schema/swagger-ui/`
 - Através da url fornecida acima, é possível realizar todas as requisições HTTP através da tela disponibilizada.
     - Para realizar as chamadas HTTP é necessário autenticar
-- Para rodar o projeto com DOCKER, deve-se criar um env file com as variáveis presentes no arquivo .env.example.docker
-- Para rodar o projeto sem DOCKER, deve-se criar um env file com as variáveis presentes no arquivo .env.example
