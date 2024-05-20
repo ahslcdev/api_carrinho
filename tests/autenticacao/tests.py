@@ -68,7 +68,7 @@ class UsuarioViewSetTestCase(TestCase):
         """
         data = {
             "username": "teste",
-            "password": "teste",
+            "password": "_%3@t!p=f!940f$i*oatd#0xetr4i#$px#o(@7(^p(jx6rhm4q",
             "email": "teste@gmail.com"
         }
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.token}')
@@ -76,13 +76,26 @@ class UsuarioViewSetTestCase(TestCase):
         self.assertEqual(response.status_code, 201)
         self.assertGreaterEqual(len(response.json()), 2)
 
+    def test_post_error_password_fraca(self):
+        """
+        Teste de erro ao tentar cadastrar um novo usuário com senha fraca
+        """
+        data = {
+            "username": "teste",
+            "password": "teste",
+            "email": "teste@gmail.com"
+        }
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.token}')
+        response = self.client.post(f"{self.url_base}/api/usuarios/", data)
+        self.assertEqual(response.status_code, 400)
+
     def test_post_error_username(self):
         """
         Teste de erro ao tentar cadastrar um usuário com username já existente
         """
         data = {
             "username": self.user.username,
-            "password": "teste",
+            "password": "_%3@t!p=f!940f$i*oatd#0xetr4i#$px#o(@7(^p(jx6rhm4q",
             "email": "teste@gmail.com"
         }
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.token}')
@@ -97,7 +110,7 @@ class UsuarioViewSetTestCase(TestCase):
         """
         data = {
             "username": '',
-            "password": "teste",
+            "password": "_%3@t!p=f!940f$i*oatd#0xetr4i#$px#o(@7(^p(jx6rhm4q",
             "email": 'teste@example.com'
         }
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.token}')
